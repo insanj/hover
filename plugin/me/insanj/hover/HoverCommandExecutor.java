@@ -26,17 +26,13 @@ public class HoverCommandExecutor implements CommandExecutor {
         if (args.length != 1) {
             return false;
         } else if (args[0].equalsIgnoreCase("add")) {
-            if (!(sender instanceof Player)) {
-                return false;
+            if (Hover.senderHasPermission(sender, Hover.PermissionType.ADD) == false) {
+                sender.sendMessage(ERROR_NO_PERMISSIONS);
+                return true;
             }
 
             Player player = (Player)sender;
             
-            if (Hover.playerHasPermission(player, Hover.PermissionType.ADD) == false) {
-                player.sendMessage(ERROR_NO_PERMISSIONS);
-                return true;
-            }
-
             HashMap defaultContents = new HashMap();
             defaultContents.put("Name", player.getName());
             plugin.getConfig().createSection(player.getUniqueId().toString(), defaultContents);
@@ -45,12 +41,7 @@ public class HoverCommandExecutor implements CommandExecutor {
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Wrote default config for " + player.getName() + " with UUID " + player.getUniqueId().toString() + "!");
             return true;
         } else if (args[0].equalsIgnoreCase("reload")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("Undefined use of Hover as non-Player. You have to be a Player to do anything!");
-                return false;
-            }
-
-            if (Hover.playerHasPermission(player, Hover.PermissionType.RELOAD) == false) {
+            if (Hover.senderHasPermission(sender, Hover.PermissionType.RELOAD) == false) {
                 sender.sendMessage(ERROR_NO_PERMISSIONS);
                 return true;
             }
@@ -59,12 +50,7 @@ public class HoverCommandExecutor implements CommandExecutor {
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Hover reloaded!");
             return true;
         } else if (args[0].equalsIgnoreCase("start")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("Undefined use of Hover as non-Player. You have to be a Player to do anything!");
-                return false;
-            }
-
-            if (Hover.playerHasPermission(player, Hover.PermissionType.START) == false) {
+            if (Hover.senderHasPermission(sender, Hover.PermissionType.START) == false) {
                 sender.sendMessage(ERROR_NO_PERMISSIONS);
                 return true;
             }
@@ -75,22 +61,17 @@ public class HoverCommandExecutor implements CommandExecutor {
             }
 
             plugin.listener.disabled = false;
-            Bukkit.getServer().getPluginManager().registerEvents(plugin.listener, this); 
+            Bukkit.getServer().getPluginManager().registerEvents(plugin.listener, plugin); 
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Hover re-enabled!");
             return true;
         } else if (args[0].equalsIgnoreCase("stop")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("Undefined use of Hover as non-Player. You have to be a Player to do anything!");
-                return false;
-            }
-
-            if (Hover.playerHasPermission(sender, Hover.PermissionType.STOP) == false) {
+            if (Hover.senderHasPermission(sender, Hover.PermissionType.STOP) == false) {
                 sender.sendMessage(ERROR_NO_PERMISSIONS);
                 return true;
             }
 
             if (plugin.listener.disabled == true) {
-                player.sendMessage(ChatColor.RED + "Hover is already disabled.");
+                sender.sendMessage(ChatColor.RED + "Hover is already disabled.");
                 return true;
             }
 

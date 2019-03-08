@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class Hover extends JavaPlugin {
     public static final String HOVER_PERMISSION_RELOAD_KEY = "hover.reload";
@@ -34,7 +35,15 @@ public class Hover extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(listener, this); 
     }
 
-    public static boolean playerHasPermission(Player player, PermissionType type) {
+    public static boolean senderHasPermission(CommandSender sender, PermissionType type) {
+        if (!(sender instanceof Player)) {
+            return false;
+        }
+
+        return playerHasPermission((Player)sender, type);
+    }
+
+    public static boolean playerHasPermission(CommandSender player, PermissionType type) {
         if (player.isOp() == true) {
             return true;
         }

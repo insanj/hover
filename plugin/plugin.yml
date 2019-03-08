@@ -3,7 +3,23 @@ description: hover over a user in minecraft chat to see info about them
 author: insanj
 website: https://github.com/insanj/hover
 main: me.insanj.hover.Hover
-version: 0.1.1
+version: 0.2.0
+permissions:
+  hover.*:
+    description: Gives access to all Hover commands
+    children:
+      hover.add: true
+      hover.start: true
+      hover.stop: true
+      hover.reload: true
+  hover.add:
+    description: Gives access to /hover add
+  hover.start:
+    description: Gives access to /hover start
+  hover.stop:
+    description: Gives access to /hover stop
+  hover.reload:
+    description: Gives access to /hover reload
 commands:
   hover:
     description: List all Hover commands
