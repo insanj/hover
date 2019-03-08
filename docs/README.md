@@ -52,11 +52,10 @@ Each of these commands requires a corresponding `hover.` permission [in the perm
 ### Example `/plugins/hover/config.yml`
 
 ```yaml
-4c72432a-2wa6-253e-8c1a-421e2249e1w4:
-  Name: julian
-  Rank: Honorable Developer
-  Time Played: 500 hours
-  Github: github.com/@insanj
+insanj:
+  Name: Example
+  Time Played: 857 hours
+  Blood Status: Half-Blood
 ```
 
 ### Example `permissions.yml`

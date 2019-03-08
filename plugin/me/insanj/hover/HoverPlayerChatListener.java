@@ -39,7 +39,7 @@ public class HoverPlayerChatListener implements Listener {
         if (disabled == true) {
             return;
         }
-        
+
         Player player = event.getPlayer();
         String msg = event.getMessage();
         String hoverText = getHoverTextForPlayer(player);
@@ -52,7 +52,7 @@ public class HoverPlayerChatListener implements Listener {
     }
 
     public String getHoverTextForPlayer(Player player) {
-        ConfigurationSection configSection = this.plugin.getConfig().getConfigurationSection(player.getUniqueId().toString());
+        ConfigurationSection configSection = this.plugin.getConfig().getConfigurationSection(player.getName());
         if (configSection == null) {
             return player.getName(); // nothing configured for player
         }

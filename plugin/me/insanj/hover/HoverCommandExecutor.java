@@ -35,10 +35,10 @@ public class HoverCommandExecutor implements CommandExecutor {
             
             HashMap defaultContents = new HashMap();
             defaultContents.put("Name", player.getName());
-            plugin.getConfig().createSection(player.getUniqueId().toString(), defaultContents);
+            plugin.getConfig().createSection(player.getName(), defaultContents);
             plugin.saveConfig();
 
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "Wrote default config for " + player.getName() + " with UUID " + player.getUniqueId().toString() + "!");
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "Wrote default config for " + player.getName() + "!");
             return true;
         } else if (args[0].equalsIgnoreCase("reload")) {
             if (Hover.senderHasPermission(sender, Hover.PermissionType.RELOAD) == false) {
