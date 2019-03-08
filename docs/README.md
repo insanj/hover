@@ -1,7 +1,38 @@
-# hover
-👈  hover over a user in minecraft chat to see info about them
+<h3 align="center">
+  👈
+<br/><br/>
+hover
+<br/>
+hover over a user in minecraft chat to see info about them
+</h3>
 
-built by request on the [Bukkit Plugin Forums](https://bukkit.org/threads/hover-info.478813/).
+<p align="center">
+  <a href="https://github.com/insanj/portal/releases">
+    <img src="https://img.shields.io/github/release/insanj/hover.svg" />
+  </a>
+
+  <a href="https://github.com/insanj/portal/">
+    <img src="https://img.shields.io/github/languages/code-size/insanj/hover.svg" />
+  </a>
+
+  <a href="https://github.com/insanj/portal/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/insanj/hover.svg" />
+  </a>
+
+  <br/>
+
+  <a href="https://jdk.java.net/">
+    <img src="https://img.shields.io/badge/java-10.0.2-yellow.svg" />
+  </a>
+  
+  <a href="https://getbukkit.org/download/craftbukkit">
+    <img src="https://img.shields.io/badge/bukkit-1.13.2-purple.svg" />
+  </a>
+  
+  <a href="https://bukkit.org/threads/hover-info.478813/">
+    <img src="https://img.shields.io/badge/🚀-Learn%20more%20on%20bukkit.org-red.svg" />
+  </a>
+</p>
 
 ## How to Play
 
