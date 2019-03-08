@@ -72,7 +72,7 @@ users:
 <img align="center" src="setting_up.png" />
 <img align="center" src="custom_stuff.png" />
 
-## Acknowledgements
+## Related Links
 
 - [Chat Component API](https://www.spigotmc.org/wiki/the-chat-component-api/)
 - [Item Tooltips](https://www.spigotmc.org/threads/tut-item-tooltips-with-the-chatcomponent-api.65964/)
@@ -85,6 +85,7 @@ users:
 - [Convert Tellraw JSON to ChatSerializer](https://www.spigotmc.org/threads/convert-tellraw-json-to-chat-serializer.84912/)
 - [Hover Text](https://www.spigotmc.org/threads/hover-text.259032/)
 - [Hover Over Players Name](https://www.spigotmc.org/threads/hover-over-players-name.194490/)
+- [IChatBaseComponent help](https://bukkit.org/threads/ichatbasecomponent-help.318790/)
 
 ## Authors
 
