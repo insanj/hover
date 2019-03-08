@@ -26,16 +26,6 @@ public class HoverPlayerChatListener implements Listener {
         this.plugin = plugin;
     }
     
-    /*
-    @EventHandler
-    public void onCommandPreprocess(PlayerChatEvent event) {
-        Player sender = event.getPlayer();
-
-        if (event.getMessage().equalsIgnoreCase("")) {
-            event.setCancelled(true);
-        }
-    }*/
-
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
@@ -47,21 +37,32 @@ public class HoverPlayerChatListener implements Listener {
 
         event.setCancelled(true);
     }
-    
-    public static PacketPlayOutChat createPacketPlayOutChat(String s){
+
+    public void sendMessage(Player player, String message, String hoverText) {
+        String jsonString = "{\"text\":\"" + message + "\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + hoverText + "\"}}";
+        System.out.println("jsonString = " + jsonString);
+        sendJsonMessage(player, jsonString);
+    }
+
+    public static void sendJsonMessage(Player p, String s) {
+        ( (CraftPlayer)p ).getHandle().playerConnection.sendPacket( createPacketPlayOutChat(s) );
+    }
+
+    public static PacketPlayOutChat createPacketPlayOutChat(String s) {
         IChatBaseComponent comp = ChatSerializer.a(s);
         return new PacketPlayOutChat(comp);
     }
 
-    public static void SendJsonMessage(Player p, String s){
-        ( (CraftPlayer)p ).getHandle().playerConnection.sendPacket( createPacketPlayOutChat(s) );
+    /*
+      public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        CraftPlayer craftplayer = (CraftPlayer) player;
+        PlayerConnection connection = craftplayer.getHandle().playerConnection;
+        IChatBaseComponent titleJSON = ChatSerializer.a("{'text': '" + title + "'}");
+        IChatBaseComponent subtitleJSON = ChatSerializer.a("{'text': '" + subtitle + "'}");
+        PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(EnumTitleAction.TITLE, titleJSON, fadeIn, stay, fadeOut);
+        PacketPlayOutTitle subtitlePacket = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, subtitleJSON);
+        connection.sendPacket(titlePacket);
+        connection.sendPacket(subtitlePacket);
     }
-    
-    public void sendMessage(Player player, String message, String hoverText) {
-        SendJsonMessage(player, "{text:\"" + message + "\",hoverEvent:{action:show_text,value:\"" + hoverText + "\"}}");
-        /*SendJsonMessage(player,
-            "{text:\"" + message + "\",clickEvent:{action:open_url,value:\"" +
-            url + "\"}}");*/
-         //         /tellraw @a {text:"HOVER",hoverEvent:{action:show_text,value:"This is a test"}}
-    }
+*/
 }
