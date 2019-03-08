@@ -13,10 +13,10 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 public class Hover extends JavaPlugin {
-    public static final String HOVER_PERMISSION_RELOAD_KEY = "hover.reload";
-    public static final String HOVER_PERMISSION_STOP_KEY = "hover.stop";
-    public static final String HOVER_PERMISSION_START_KEY = "hover.start";
-    public static final String HOVER_PERMISSION_ADD_KEY = "hover.add";
+    public static final String HOVER_PERMISSION_ADD_KEY = "hoveradd";
+    public static final String HOVER_PERMISSION_START_KEY = "hoverstart";
+    public static final String HOVER_PERMISSION_STOP_KEY = "hoverstop";
+    public static final String HOVER_PERMISSION_RELOAD_KEY = "hoverreload";
 
     public static enum PermissionType {
         RELOAD,
@@ -33,40 +33,13 @@ public class Hover extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        // register for permissions
-        PluginManager pluginManager = Bukkit.getServer().getPluginManager();
-        Set<Permission> existingPermissions = pluginManager.getPermissions();
-        Set<Permission> hoverPermissions = hoverPermissions();
-        for (Permission p : hoverPermissions) {
-            if (!existingPermissions.contains(p)) {
-                pluginManager.addPermission(p);
-            }
-        }
-
         // setup /hover command executors
         executor = new HoverCommandExecutor(this);
         getCommand("hover").setExecutor(executor);
         
         // setup listener for chat events to add hover overlay
         listener = new HoverPlayerChatListener(this);
-        pluginManager.registerEvents(listener, this); 
-    }
-
-    public static Set<Permission> hoverPermissions() {
-        Set<Permission> permissionSet = new HashSet<Permission>();
-        Permission addPermission = new Permission("hover.add");
-        permissionSet.add(addPermission);
-        
-        Permission startPermission = new Permission("hover.start");
-        permissionSet.add(startPermission);
-
-        Permission stopPermission = new Permission("hover.stop");
-        permissionSet.add(stopPermission);
-
-        Permission reloadPermission = new Permission("hover.reload");
-        permissionSet.add(reloadPermission);
-
-        return permissionSet;
+        Bukkit.getServer().getPluginManager().registerEvents(listener, this); 
     }
 
     public static boolean senderHasPermission(CommandSender sender, PermissionType type) {
@@ -74,25 +47,18 @@ public class Hover extends JavaPlugin {
             return false;
         }
 
-        return playerHasPermission((Player)sender, type);
-    }
-
-    public static boolean playerHasPermission(CommandSender player, PermissionType type) {
-        if (player.isOp() == true) {
-            return true;
-        }
-
         switch (type) {
             case RELOAD:
-                return player.hasPermission(HOVER_PERMISSION_RELOAD_KEY);
+                return sender.hasPermission(HOVER_PERMISSION_RELOAD_KEY) == true;
             case STOP:
-                return player.hasPermission(HOVER_PERMISSION_STOP_KEY);
+                return sender.hasPermission(HOVER_PERMISSION_STOP_KEY) == true;
             case START:
-                return player.hasPermission(HOVER_PERMISSION_START_KEY);
+                return sender.hasPermission(HOVER_PERMISSION_START_KEY) == true;
             case ADD:
-                return player.hasPermission(HOVER_PERMISSION_ADD_KEY);
+                return sender.hasPermission(HOVER_PERMISSION_ADD_KEY) == true;
         }
 
+        System.out.println("WHAT?");
         return false;
     }
 }

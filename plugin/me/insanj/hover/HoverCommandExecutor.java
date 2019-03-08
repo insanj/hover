@@ -13,6 +13,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 
 public class HoverCommandExecutor implements CommandExecutor {
     public final Hover plugin;
@@ -24,6 +25,9 @@ public class HoverCommandExecutor implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length != 1) {
+            for (PermissionAttachmentInfo info : sender.getEffectivePermissions​()) {
+                System.out.println(info.getPermission() + " = " + info.getValue());
+            }
             return false;
         } else if (args[0].equalsIgnoreCase("add")) {
             if (Hover.senderHasPermission(sender, Hover.PermissionType.ADD) == false) {
