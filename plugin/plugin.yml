@@ -10,6 +10,8 @@ commands:
     usage: |
              /hover
              /hover add
+             /hover start
+             /hover stop
              /hover reload
   hover add:
     description: Add default configuration for yourself

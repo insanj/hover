@@ -38,9 +38,16 @@ hover over a user in minecraft chat to see info about them
 
 - install and run `hover` on your server
 - setup player information in the auto-generated `/plugins/hover/config.yml` file
-    - use `/hover add` to add the default config for yourself
-    - use `/hover reload` to reload configuration file without restarting server
 - hover your mouse over a player name in chat to see the tooltip info
+
+### Commands
+
+Each of these commands requires a corresponding `hover.` permission [in the permissions.yml file](#example--permissions-yml--), such as `hover.add` or `hover.reload`. All operators can run all Hover commands.
+
+- use `/hover add` to add a default config entry for yourself
+- use `/hover reload` to reload configuration file without restarting server
+- use `/hover stop` to stop the plugin
+- use `/hover start` to start the plugin after stopping it
 
 ### Example `/plugins/hover/config.yml`
 
@@ -50,6 +57,15 @@ hover over a user in minecraft chat to see info about them
   Rank: Honorable Developer
   Time Played: 500 hours
   Github: github.com/@insanj
+```
+
+### Example `permissions.yml`
+
+```yaml
+users:
+    insanj:
+        permissions:
+            -'hover.add'
 ```
 
 ### Screenshots

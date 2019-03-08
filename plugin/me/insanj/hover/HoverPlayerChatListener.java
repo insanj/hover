@@ -28,12 +28,18 @@ import net.minecraft.server.v1_13_R2.PlayerConnection;
 
 public class HoverPlayerChatListener implements Listener {
     public final Hover plugin;
+    public boolean disabled;
     public HoverPlayerChatListener(Hover plugin) {
         this.plugin = plugin;
+        this.disabled = false;
     }
     
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
+        if (disabled == true) {
+            return;
+        }
+        
         Player player = event.getPlayer();
         String msg = event.getMessage();
         String hoverText = getHoverTextForPlayer(player);
