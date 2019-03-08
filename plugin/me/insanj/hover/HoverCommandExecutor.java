@@ -25,16 +25,8 @@ public class HoverCommandExecutor implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length != 1) {
-            for (PermissionAttachmentInfo info : sender.getEffectivePermissions​()) {
-                System.out.println(info.getPermission() + " = " + info.getValue());
-            }
             return false;
         } else if (args[0].equalsIgnoreCase("add")) {
-            if (Hover.senderHasPermission(sender, Hover.PermissionType.ADD) == false) {
-                sender.sendMessage(ERROR_NO_PERMISSIONS);
-                return true;
-            }
-
             Player player = (Player)sender;
             
             HashMap defaultContents = new HashMap();
@@ -45,20 +37,10 @@ public class HoverCommandExecutor implements CommandExecutor {
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Wrote default config for " + player.getName() + "!");
             return true;
         } else if (args[0].equalsIgnoreCase("reload")) {
-            if (Hover.senderHasPermission(sender, Hover.PermissionType.RELOAD) == false) {
-                sender.sendMessage(ERROR_NO_PERMISSIONS);
-                return true;
-            }
-
             plugin.reloadConfig();
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Hover reloaded!");
             return true;
         } else if (args[0].equalsIgnoreCase("start")) {
-            if (Hover.senderHasPermission(sender, Hover.PermissionType.START) == false) {
-                sender.sendMessage(ERROR_NO_PERMISSIONS);
-                return true;
-            }
-
             if (plugin.listener.disabled == false) {
                 sender.sendMessage(ChatColor.RED + "Hover is already enabled.");
                 return true;
@@ -69,11 +51,6 @@ public class HoverCommandExecutor implements CommandExecutor {
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Hover re-enabled!");
             return true;
         } else if (args[0].equalsIgnoreCase("stop")) {
-            if (Hover.senderHasPermission(sender, Hover.PermissionType.STOP) == false) {
-                sender.sendMessage(ERROR_NO_PERMISSIONS);
-                return true;
-            }
-
             if (plugin.listener.disabled == true) {
                 sender.sendMessage(ChatColor.RED + "Hover is already disabled.");
                 return true;

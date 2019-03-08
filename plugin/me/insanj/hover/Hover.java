@@ -36,12 +36,17 @@ public class Hover extends JavaPlugin {
         // setup /hover command executors
         executor = new HoverCommandExecutor(this);
         getCommand("hover").setExecutor(executor);
-        
+        getCommand("hover add").setExecutor(executor);
+        getCommand("hover start").setExecutor(executor);
+        getCommand("hover stop").setExecutor(executor);
+        getCommand("hover reload").setExecutor(executor);
+
         // setup listener for chat events to add hover overlay
         listener = new HoverPlayerChatListener(this);
         Bukkit.getServer().getPluginManager().registerEvents(listener, this); 
     }
 
+    /*
     public static boolean senderHasPermission(CommandSender sender, PermissionType type) {
         if (!(sender instanceof Player)) {
             return false;
@@ -60,5 +65,5 @@ public class Hover extends JavaPlugin {
 
         System.out.println("WHAT?");
         return false;
-    }
+    }*/
 }
