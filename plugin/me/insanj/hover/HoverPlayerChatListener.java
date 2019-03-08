@@ -1,5 +1,9 @@
 package me.insanj.hover;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,6 +18,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import net.minecraft.server.v1_13_R2.IChatBaseComponent;
 import net.minecraft.server.v1_13_R2.IChatBaseComponent.ChatSerializer;
@@ -30,17 +36,37 @@ public class HoverPlayerChatListener implements Listener {
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String msg = event.getMessage();
+        String hoverText = getHoverTextForPlayer(player);
 
         for (Player recipient : event.getRecipients​()) {
-            sendMessage(recipient, msg, "Hello world!");
+            sendMessage(recipient, msg, hoverText);
         }
 
         event.setCancelled(true);
     }
 
+    public String getHoverTextForPlayer(Player player) {
+        ConfigurationSection configSection = this.plugin.getConfig().getConfigurationSection(player.getUniqueId().toString());
+        if (configSection == null) {
+            return player.getName(); // nothing configured for player
+        }
+
+        Map<String, Object> tooltipStrings = (Map<String, Object>)configSection.getValues(false);
+        if (tooltipStrings == null || tooltipStrings.size() <= 0) {
+            return player.getName(); // nothing configured for player
+        }
+
+        String hoverText = "";
+        for (String tooltipKey : tooltipStrings.keySet()) {
+            String tooltipContents = (String)tooltipStrings.get(tooltipKey);
+            hoverText += tooltipKey + ": " + tooltipContents + "\n";
+        }
+        return hoverText.trim();
+    }
+
     public void sendMessage(Player player, String message, String hoverText) {
-        String jsonString = "{\"text\":\"" + message + "\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + hoverText + "\"}}";
-        System.out.println("jsonString = " + jsonString);
+        String formattedMessage = "<" + player.getName() + "> " + message;
+        String jsonString = "{\"text\":\"" + formattedMessage + "\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + hoverText + "\"}}";
         sendJsonMessage(player, jsonString);
     }
 
@@ -52,17 +78,4 @@ public class HoverPlayerChatListener implements Listener {
         IChatBaseComponent comp = ChatSerializer.a(s);
         return new PacketPlayOutChat(comp);
     }
-
-    /*
-      public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
-        CraftPlayer craftplayer = (CraftPlayer) player;
-        PlayerConnection connection = craftplayer.getHandle().playerConnection;
-        IChatBaseComponent titleJSON = ChatSerializer.a("{'text': '" + title + "'}");
-        IChatBaseComponent subtitleJSON = ChatSerializer.a("{'text': '" + subtitle + "'}");
-        PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(EnumTitleAction.TITLE, titleJSON, fadeIn, stay, fadeOut);
-        PacketPlayOutTitle subtitlePacket = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, subtitleJSON);
-        connection.sendPacket(titlePacket);
-        connection.sendPacket(subtitlePacket);
-    }
-*/
 }

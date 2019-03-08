@@ -5,8 +5,19 @@ website: https://github.com/insanj/hover
 main: me.insanj.hover.Hover
 version: 0.1.0
 commands:
-  hover reload:
-    description: Reload
+  hover:
+    description: List all Hover commands
     usage: |
-             Reload
+             /hover
+             /hover add
+             /hover reload
+  hover add:
+    description: Add default configuration for yourself
+    usage: |
+             Add default configuration for yourself
+             /hover add
+  hover reload:
+    description: Reload all configurations from config file
+    usage: |
+             Reload all configurations from config file
              /hover reload

@@ -7,8 +7,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Hover extends JavaPlugin {
 	@Override
-	public void onEnable() {        
-        getCommand("hover reload").setExecutor(new HoverCommandExecutor(this));
+	public void onEnable() {
+        saveDefaultConfig();
+        reloadConfig();
+
+        HoverCommandExecutor executor = new HoverCommandExecutor(this);
+        getCommand("hover").setExecutor(executor);
+        
         Bukkit.getServer().getPluginManager().registerEvents(new HoverPlayerChatListener(this), this); 
     }
 }
