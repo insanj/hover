@@ -13,20 +13,9 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 public class Hover extends JavaPlugin {
-    public static final String HOVER_PERMISSION_ADD_KEY = "hoveradd";
-    public static final String HOVER_PERMISSION_START_KEY = "hoverstart";
-    public static final String HOVER_PERMISSION_STOP_KEY = "hoverstop";
-    public static final String HOVER_PERMISSION_RELOAD_KEY = "hoverreload";
-
-    public static enum PermissionType {
-        RELOAD,
-        STOP,
-        START,
-        ADD
-    }
-
     public HoverPlayerChatListener listener;
     public HoverCommandExecutor executor;
+    public HoverMessageComposer composer;
 
 	@Override
 	public void onEnable() {
@@ -35,11 +24,14 @@ public class Hover extends JavaPlugin {
 
         // setup /hover command executors
         executor = new HoverCommandExecutor(this);
-        getCommand("hover").setExecutor(executor);
         getCommand("hover add").setExecutor(executor);
         getCommand("hover start").setExecutor(executor);
         getCommand("hover stop").setExecutor(executor);
         getCommand("hover reload").setExecutor(executor);
+        getCommand("hover").setExecutor(executor);
+
+        // setup composer for messages
+        composer = new HoverMessageComposer(this);
 
         // setup listener for chat events to add hover overlay
         listener = new HoverPlayerChatListener(this);
@@ -47,6 +39,18 @@ public class Hover extends JavaPlugin {
     }
 
     /*
+    public static final String HOVER_PERMISSION_ADD_KEY = "hover.add";
+    public static final String HOVER_PERMISSION_START_KEY = "hover.start";
+    public static final String HOVER_PERMISSION_STOP_KEY = "hover.stop";
+    public static final String HOVER_PERMISSION_RELOAD_KEY = "hover.reload";
+
+    public static enum PermissionType {
+        RELOAD,
+        STOP,
+        START,
+        ADD
+    }
+
     public static boolean senderHasPermission(CommandSender sender, PermissionType type) {
         if (!(sender instanceof Player)) {
             return false;

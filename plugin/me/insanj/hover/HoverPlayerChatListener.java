@@ -42,46 +42,12 @@ public class HoverPlayerChatListener implements Listener {
 
         Player player = event.getPlayer();
         String msg = event.getMessage();
-        String hoverText = getHoverTextForPlayer(player);
 
         for (Player recipient : event.getRecipients​()) {
-            sendMessage(recipient, msg, hoverText);
+            plugin.composer.sendMessage(player, recipient, msg);
         }
 
         event.setCancelled(true);
     }
 
-    public String getHoverTextForPlayer(Player player) {
-        ConfigurationSection configSection = this.plugin.getConfig().getConfigurationSection(player.getName());
-        if (configSection == null) {
-            return player.getName(); // nothing configured for player
-        }
-
-        Map<String, Object> tooltipStrings = (Map<String, Object>)configSection.getValues(false);
-        if (tooltipStrings == null || tooltipStrings.size() <= 0) {
-            return player.getName(); // nothing configured for player
-        }
-
-        String hoverText = "";
-        for (String tooltipKey : tooltipStrings.keySet()) {
-            String tooltipContents = (String)tooltipStrings.get(tooltipKey);
-            hoverText += tooltipKey + ": " + tooltipContents + "\n";
-        }
-        return hoverText.trim();
-    }
-
-    public void sendMessage(Player player, String message, String hoverText) {
-        String formattedMessage = "<" + player.getName() + "> " + message;
-        String jsonString = "{\"text\":\"" + formattedMessage + "\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + hoverText + "\"}}";
-        sendJsonMessage(player, jsonString);
-    }
-
-    public static void sendJsonMessage(Player p, String s) {
-        ( (CraftPlayer)p ).getHandle().playerConnection.sendPacket( createPacketPlayOutChat(s) );
-    }
-
-    public static PacketPlayOutChat createPacketPlayOutChat(String s) {
-        IChatBaseComponent comp = ChatSerializer.a(s);
-        return new PacketPlayOutChat(comp);
-    }
 }
