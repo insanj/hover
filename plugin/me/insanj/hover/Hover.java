@@ -24,11 +24,7 @@ public class Hover extends JavaPlugin {
 
         // setup /hover command executors
         executor = new HoverCommandExecutor(this);
-        getCommand("add").setExecutor(executor);
-        getCommand("start").setExecutor(executor);
-        getCommand("stop").setExecutor(executor);
-        getCommand("reload").setExecutor(executor);
-        getCommand("help").setExecutor(executor);
+        getCommand("hover").setExecutor(executor);
 
         // setup composer for messages
         composer = new HoverMessageComposer(this);
@@ -37,37 +33,4 @@ public class Hover extends JavaPlugin {
         listener = new HoverPlayerChatListener(this);
         Bukkit.getServer().getPluginManager().registerEvents(listener, this); 
     }
-
-    /*
-    public static final String HOVER_PERMISSION_ADD_KEY = "hover.add";
-    public static final String HOVER_PERMISSION_START_KEY = "hover.start";
-    public static final String HOVER_PERMISSION_STOP_KEY = "hover.stop";
-    public static final String HOVER_PERMISSION_RELOAD_KEY = "hover.reload";
-
-    public static enum PermissionType {
-        RELOAD,
-        STOP,
-        START,
-        ADD
-    }
-
-    public static boolean senderHasPermission(CommandSender sender, PermissionType type) {
-        if (!(sender instanceof Player)) {
-            return false;
-        }
-
-        switch (type) {
-            case RELOAD:
-                return sender.hasPermission(HOVER_PERMISSION_RELOAD_KEY) == true;
-            case STOP:
-                return sender.hasPermission(HOVER_PERMISSION_STOP_KEY) == true;
-            case START:
-                return sender.hasPermission(HOVER_PERMISSION_START_KEY) == true;
-            case ADD:
-                return sender.hasPermission(HOVER_PERMISSION_ADD_KEY) == true;
-        }
-
-        System.out.println("WHAT?");
-        return false;
-    }*/
 }
