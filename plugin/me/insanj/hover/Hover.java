@@ -24,11 +24,11 @@ public class Hover extends JavaPlugin {
 
         // setup /hover command executors
         executor = new HoverCommandExecutor(this);
-        getCommand("hover add").setExecutor(executor);
-        getCommand("hover start").setExecutor(executor);
-        getCommand("hover stop").setExecutor(executor);
-        getCommand("hover reload").setExecutor(executor);
-        getCommand("hover").setExecutor(executor);
+        getCommand("add").setExecutor(executor);
+        getCommand("start").setExecutor(executor);
+        getCommand("stop").setExecutor(executor);
+        getCommand("reload").setExecutor(executor);
+        getCommand("help").setExecutor(executor);
 
         // setup composer for messages
         composer = new HoverMessageComposer(this);

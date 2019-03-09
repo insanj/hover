@@ -5,46 +5,46 @@ website: https://github.com/insanj/hover
 main: me.insanj.hover.Hover
 version: 0.3.0
 permissions:
+  hover.help:
+    description: Gives access to /hover:help
+    default: true
   hover.add:
-    description: Gives access to /hover add
+    description: Gives access to /hover:add
     default: op
   hover.start:
-    description: Gives access to /hover start
+    description: Gives access to /hover:start
     default: op
   hover.stop:
-    description: Gives access to /hover stop
+    description: Gives access to /hover:stop
     default: op
   hover.reload:
-    description: Gives access to /hover reload
+    description: Gives access to /hover:reload
     default: op
 commands:
-  hover:
+  help:
     description: List all Hover commands
     usage: |
-             /hover
-             /hover add
-             /hover start
-             /hover stop
-             /hover reload
-  hover add:
+             List all hover commands
+             /hover help
+  add:
     permission: hover.add
     description: Add default configuration for yourself
     usage: |
              Add default configuration for yourself
              /hover add
-  hover reload:
+  reload:
     permission: hover.reload
     description: Reload all configurations from config file
     usage: |
              Reload all configurations from config file
              /hover reload
-  hover stop:
+  stop:
     permission: hover.stop
     description: Stop Hover from adding tooltips
     usage: |
              Stop Hover from adding tooltips
              /hover stop
-  hover start:
+  start:
     permission: hover.start
     description: Start Hover after stopping it
     usage: |

@@ -24,9 +24,11 @@ public class HoverCommandExecutor implements CommandExecutor {
     }
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (args.length != 1) {
-            return false;
-        } else if (args[0].equalsIgnoreCase("add")) {
+        String commandName = label;
+        if (commandName.equalsIgnoreCase("hover:help")) {
+            sender.sendMessage("/hover help\n/hover add\n/hover start\n/hover stop\n/hover reload");
+            return true;
+        } else if (commandName.equalsIgnoreCase("hover:add")) {
             Player player = (Player)sender;
             
             HashMap defaultContents = new HashMap();
@@ -36,11 +38,11 @@ public class HoverCommandExecutor implements CommandExecutor {
 
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Wrote default config for " + player.getName() + "!");
             return true;
-        } else if (args[0].equalsIgnoreCase("reload")) {
+        } else if (commandName.equalsIgnoreCase("hover:reload")) {
             plugin.reloadConfig();
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Hover reloaded!");
             return true;
-        } else if (args[0].equalsIgnoreCase("start")) {
+        } else if (commandName.equalsIgnoreCase("hover:start")) {
             if (plugin.listener.disabled == false) {
                 sender.sendMessage(ChatColor.RED + "Hover is already enabled.");
                 return true;
@@ -50,7 +52,7 @@ public class HoverCommandExecutor implements CommandExecutor {
             Bukkit.getServer().getPluginManager().registerEvents(plugin.listener, plugin); 
             sender.sendMessage(ChatColor.LIGHT_PURPLE + "Hover re-enabled!");
             return true;
-        } else if (args[0].equalsIgnoreCase("stop")) {
+        } else if (commandName.equalsIgnoreCase("hover:stop")) {
             if (plugin.listener.disabled == true) {
                 sender.sendMessage(ChatColor.RED + "Hover is already disabled.");
                 return true;
@@ -62,6 +64,7 @@ public class HoverCommandExecutor implements CommandExecutor {
             return true;
         }
 
-		return false;
+        sender.sendMessage(ChatColor.RED + "Hover did not recognize command: " + commandName);
+        return false;
     }
 }
