@@ -3,7 +3,7 @@ description: hover over a user in minecraft chat to see info about them
 author: insanj
 website: https://github.com/insanj/hover
 main: me.insanj.hover.Hover
-version: 0.3.0
+version: 1.0.0
 permissions:
   hover.add:
     description: Gives access to /hover add
