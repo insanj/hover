@@ -42,7 +42,7 @@ hover over a user in minecraft chat to see info about them
 
 ### Commands
 
-Each of these commands requires a corresponding `hover.` permission [in the permissions.yml file](#example--permissions-yml--), such as `hover.add` or `hover.reload`. All operators can run all Hover commands.
+Each of these commands requires a corresponding permission, such as `hover.add` or `hover.reload`. All operators can run Hover commands.
 
 - use `/hover add` to add a default config entry for yourself
 - use `/hover reload` to reload configuration file without restarting server
@@ -58,19 +58,23 @@ insanj:
   Blood Status: Half-Blood
 ```
 
-### Example `permissions.yml`
-
-```yaml
-users:
-    insanj:
-        permissions:
-            -'hover.add'
-```
-
 ### Screenshots
 
-<img align="center" src="setting_up.png" />
-<img align="center" src="custom_stuff.png" />
+#### Before Configuring
+
+<img align="center" src="first.png" />
+
+#### Reloading, Adding Myself to Config
+
+<img align="center" src="second.png" />
+
+#### Default Config
+
+<img align="center" src="third.png" />
+
+#### Example Config
+
+<img align="center" src="fourth.png" />
 
 ## Related Links
 
@@ -86,6 +90,7 @@ users:
 - [Hover Text](https://www.spigotmc.org/threads/hover-text.259032/)
 - [Hover Over Players Name](https://www.spigotmc.org/threads/hover-over-players-name.194490/)
 - [IChatBaseComponent help](https://bukkit.org/threads/ichatbasecomponent-help.318790/)
+- [Tellraw Generator for Minecraft](https://minecraftjson.com/)
 
 ## Authors
 

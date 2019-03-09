@@ -39,22 +39,31 @@ public class HoverMessageComposer {
 
     public String composeMessage(Player sender, Player player, String message) {
         String hoverText = getHoverTextForPlayer(sender);
-        String formattedMessage = "<" + player.getName() + "> " + message;
-        String jsonString = "{\"text\":\"" + formattedMessage + "\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + hoverText + "\"}}";
+        String playerName = getPlayerNameString(sender);
+        String jsonString = "[\"\", {\"text\":\"" + playerName + "\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"" + hoverText + "\"}}, {\"text\":\"" + message + "\"}]";
         return jsonString;
     }
 
-    public String getHoverTextForPlayer(Player player) {
+    public String getPlayerNameString(Player player) { // override this to customize player name format
+        return "<" + player.getName() + "> ";
+    }
+
+    public Map<String, Object> getTooltipStringsForPlayer(Player player) {
         ConfigurationSection configSection = this.plugin.getConfig().getConfigurationSection(player.getName());
         if (configSection == null) {
-            return player.getName(); // nothing configured for player
+            return null; // nothing configured for player
         }
 
         Map<String, Object> tooltipStrings = (Map<String, Object>)configSection.getValues(false);
         if (tooltipStrings == null || tooltipStrings.size() <= 0) {
-            return player.getName(); // nothing configured for player
+            return null;
         }
 
+        return tooltipStrings;
+    }
+
+    public String getHoverTextForPlayer(Player player) {
+        Map<String, Object> tooltipStrings = getTooltipStringsForPlayer(player);
         String hoverText = "";
         for (String tooltipKey : tooltipStrings.keySet()) {
             String tooltipContents = (String)tooltipStrings.get(tooltipKey);

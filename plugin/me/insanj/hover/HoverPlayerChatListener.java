@@ -41,8 +41,11 @@ public class HoverPlayerChatListener implements Listener {
         }
 
         Player player = event.getPlayer();
-        String msg = event.getMessage();
+        if (plugin.composer.getTooltipStringsForPlayer(player) == null) {
+            return; // nothing configured
+        }
 
+        String msg = event.getMessage();
         for (Player recipient : event.getRecipients​()) {
             plugin.composer.sendMessage(player, recipient, msg);
         }
