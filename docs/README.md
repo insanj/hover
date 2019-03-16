@@ -10,19 +10,23 @@ hover over a user in minecraft chat to see info about them
   <a href="https://github.com/insanj/portal/releases">
     <img src="https://img.shields.io/github/release/insanj/hover.svg" />
   </a>
-
+  
+  <a href="https://github.com/insanj/portal/releases">
+    <img src="https://img.shields.io/github/release-date/insanj/hover.svg" />
+  </a>
+  
   <a href="https://github.com/insanj/portal/">
     <img src="https://img.shields.io/github/languages/code-size/insanj/hover.svg" />
   </a>
 
+
+  <br/>
   <a href="https://github.com/insanj/portal/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/insanj/hover.svg" />
   </a>
 
-  <br/>
-
   <a href="https://jdk.java.net/">
-    <img src="https://img.shields.io/badge/java-10.0.2-yellow.svg" />
+    <img src="https://img.shields.io/badge/java-8-yellow.svg" />
   </a>
   
   <a href="https://getbukkit.org/download/craftbukkit">
