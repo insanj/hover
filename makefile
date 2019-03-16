@@ -1,4 +1,8 @@
 SHELL:=/bin/bash
+JAVA_HOME:=/usr/lib/jvm/jdk1.8.0_131
+
+JAVAC_CMD=/usr/lib/jvm/jdk1.8.0_131/bin/javac
+JAR_CMD=/usr/lib/jvm/jdk1.8.0_131/bin/jar
 
 OUTPUT_NAME=hover
 SOURCE_PATH=plugin
@@ -22,11 +26,11 @@ plugin:
 	-rm -r -f $(BUILD_PATH)
 	mkdir $(BUILD_PATH) && mkdir $(BUILD_PATH)/bin
 	# step 2 part 2 compile the plugin into the bin dir
-	javac -cp "$(JAR_DEPS_PATH)" -d $(BUILD_PATH)/bin $(FIND_JAVA_FILES)
+	$(JAVAC_CMD) -cp "$(JAR_DEPS_PATH)" -d $(BUILD_PATH)/bin $(FIND_JAVA_FILES)
 	# step 3 copy config .yml to a new "build in progress" directory
-	-cp -r $(SOURCE_PATH)/*.yml $(BUILD_PATH)/bin/	
+	-cp -r $(SOURCE_PATH)/*.yml $(BUILD_PATH)/bin/
 	# step 4 create JAR file using the "build in progress" folder
-	jar -cvf $(BUILD_PATH)/$(OUTPUT_VERSIONED_NAME).jar -C $(BUILD_PATH)/bin .
+	$(JAR_CMD) -cvf $(BUILD_PATH)/$(OUTPUT_VERSIONED_NAME).jar -C $(BUILD_PATH)/bin .
 
 
 .PHONY: clean
